@@ -1,0 +1,9 @@
+{
+  "name": "1stdibs-items",
+  "version": "0.0.1",
+  "description": "A simple library application using Backbone",
+  "dependencies": {
+    "express": "~4.12.3",
+    "path": "~0.11.14"
+  }  
+}
