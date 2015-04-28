@@ -1,6 +1,7 @@
 var express    = require('express'),
     mongoose   = require('mongoose'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    fs         = require('fs');
 
 var app = express();
 var port = 4711;
@@ -28,6 +29,20 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
   next();
+});
+
+// get field values
+app.get('/api/enums', function(req, res) {
+
+  var content;
+
+  fs.readFile('./enums.json', function read(err, data) {
+      if (err) {
+        return console.log(err);
+      }
+      content = JSON.parse(data);
+      return res.send(content);
+  });
 });
 
 // get all items
