@@ -13,7 +13,18 @@ mongoose.connect('mongodb://localhost:27017/items_database')
 var Item = new mongoose.Schema({
   title: String,
   description: String,
-  dealerInternalNotes: String
+  dealerInternalNotes: String,
+  material: {
+    description: String,
+    restricted:  Boolean
+  },
+  measurement: {
+    unit: String,
+    shape: String
+  },
+  condition: {
+    description: String
+  }
 });
 
 // models
@@ -60,7 +71,12 @@ app.get('/api/items', function(req, res) {
 app.post('/api/items', function(req, res) {
   console.log(req.body);
   var item = new ItemModel({
-    title: req.body.title
+    title: req.body.title,
+    description: req.body.description,
+    dealerInternalNotes: req.body.dealerInternalNotes,
+    material: req.body.material,
+    condition: req.body.condition,
+    measurement: req.body.measurement
   });
 
   item.save(function(err) {
@@ -89,6 +105,11 @@ app.get('/api/items/:id', function(req, res) {
 app.put('/api/items/:id', function(req, res) {
   return ItemModel.findById(req.params.id, function(err, item) {
     item.title = req.body.title;
+    item.description = req.body.description;
+    item.dealerInternalNotes = req.body.dealerInternalNotes;
+    item.material = req.body.material;
+    item.condition = req.body.condition;
+    item.measurement = req.body.measurement;
 
     return item.save(function(err) {
       if(!err) {
