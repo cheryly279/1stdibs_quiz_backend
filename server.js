@@ -20,7 +20,11 @@ var Item = new mongoose.Schema({
   },
   measurement: {
     unit: String,
-    shape: String
+    shape: String,
+    length: Number,
+    height: Number,
+    depth: Number,
+    diameter: Number
   },
   condition: {
     description: String
